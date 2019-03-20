@@ -3,7 +3,9 @@ md2oedx
 
 Translates markdown files and a structure json file into an importable Open Edx course
 
-<!-- toc -->
+## Install
+`npm install -g md2oedx`
+
 ## Usage
 `md2oedx ./source/path ./destination/path`
 
