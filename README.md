@@ -9,7 +9,7 @@ Translates markdown files and a structure json file into an importable Open Edx 
 ## Usage
 `md2oedx ./source/path ./destination/path`
 
-The source path should contain the markdown files and the json file with the course structure. Defaults to current directory.
+The source path should contain a plain structure of markdown files and a json file named **index.json** with the course structure. Defaults to current directory.
 
 The output will be written to the destination path. Defaults to current directory.
 

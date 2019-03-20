@@ -28,7 +28,9 @@
   ],
   "homepage": "https://github.com/ironhack/md2oedx",
   "keywords": [
-    "oclif"
+    "markdown",
+    "openedx",
+    "cli"
   ],
   "license": "MIT",
   "main": "src/index.js",
