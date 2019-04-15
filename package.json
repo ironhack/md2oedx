@@ -12,6 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "fs-extra": "^7.0.1",
+    "klaw-sync": "^6.0.0",
     "ramda": "^0.26.1",
     "showdown": "^1.9.0",
     "targz": "^1.0.1",

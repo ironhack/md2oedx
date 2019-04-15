@@ -1,5 +1,6 @@
 const { Converter } = require('showdown');
 const fs = require('fs-extra');
+const klaw = require('klaw-sync');
 const R = require('ramda');
 const xml = require('xmlbuilder');
 const xmlFormatter = require('xml-formatter');
@@ -19,19 +20,22 @@ module.exports = {
 function createMdFiles(sourcePath) {
   const converter = new Converter();
   const markdownFiles = R.pipe(
-    fs.readdirSync,
+    klaw,
+    R.pluck('path'),
     R.filter(R.endsWith('.md')),
+    R.map(R.replace(sourcePath, '')),
     R.juxt([
       R.map(
         R.pipe(
-          R.replace('.md', '.html'),
+          R.slice(1, Infinity),
+          R.replace(/\//g, '-'),
+          R.replace(/.md$/, '.html'),
           R.concat('html/')
         )
       ),
       R.map(
         R.pipe(
-          R.replace('html/', ''),
-          R.concat(`${sourcePath}/`),
+          R.concat(`${sourcePath}`),
           fs.readFileSync,
           R.invoker(0, 'toString'),
           converter.makeHtml.bind(converter)
@@ -83,7 +87,9 @@ function createNode(type, nodeInfo, fileName, childrenCount) {
   const xmlObject = {
     [type]: {
       '@display_name': nodeInfo.name,
-      '@filename': nodeInfo.file,
+      '@filename': nodeInfo.file
+        ? R.slice(0, -3, R.replace(/\//g, '-', nodeInfo.file))
+        : undefined,
       [childrenType]: R.times(
         index => ({
           '@url_name': `${fileName}-${R.replace(
