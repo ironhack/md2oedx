@@ -32,6 +32,8 @@ class Md2OedxCommand extends Command {
           console.log(error);
         } else {
           console.log('Done!');
+          // the HackMD parser keeps the program open so exit explicitly
+          process.exit();
         }
       }
     );
