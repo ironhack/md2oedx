@@ -1,4 +1,4 @@
-const { Converter } = require('showdown');
+const hackmdToHtml = require('hackmd-to-html');
 const fs = require('fs-extra');
 const klaw = require('klaw-sync');
 const R = require('ramda');
@@ -18,7 +18,6 @@ module.exports = {
 };
 
 function createMdFiles(sourcePath) {
-  const converter = new Converter();
   const markdownFiles = R.pipe(
     klaw,
     R.pluck('path'),
@@ -38,7 +37,7 @@ function createMdFiles(sourcePath) {
           R.concat(`${sourcePath}`),
           fs.readFileSync,
           R.invoker(0, 'toString'),
-          converter.makeHtml.bind(converter)
+          hackmdToHtml
         )
       )
     ]),
