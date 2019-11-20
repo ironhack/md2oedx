@@ -1,5 +1,6 @@
 const path = require('path');
 const os = require('os');
+const yaml = require('js-yaml');
 
 const { Command, flags } = require('@oclif/command');
 const fs = require('fs-extra');
@@ -13,9 +14,30 @@ class Md2OedxCommand extends Command {
     const { args } = this.parse(Md2OedxCommand);
     const source = path.resolve(args.source);
     const temp = `${os.tmpdir()}/md2oedx-${Date.now()}`;
-    const index = require(`${source}/index.json`);
+
+    let index;
+    if (fs.existsSync(source) && fs.lstatSync(source).isFile()) {
+      //
+      // `source` is a file, like `path/to/index.yaml`
+      //
+
+      // Support YAML
+      if (source.endsWith('.yaml')) {
+        index = yaml.safeLoad(fs.readFileSync(source, 'utf8')); // load yaml file
+      } else {
+        index = require(`${source}`); // load json/js file
+      }
+
+    } else {
+      //
+      // `source` is a directory, like `path/to`
+      //
+
+      index = require(`${source}/index.json`); // default to `index.json` if no specified file
+    }
+
     const xmlFilesMap = filesCreator.createXmlFiles(index);
-    const mdFilesMap = filesCreator.createMdFiles(source);
+    const mdFilesMap = filesCreator.createMdFiles(path.dirname(source));
     R.pipe(
       R.merge,
       R.toPairs,

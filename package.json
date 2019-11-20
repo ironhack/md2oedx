@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^2",
     "fs-extra": "^7.0.1",
     "hackmd-to-html": "^1.1.0",
+    "js-yaml": "^3.13.1",
     "klaw-sync": "^6.0.0",
     "ramda": "^0.26.1",
     "targz": "^1.0.1",

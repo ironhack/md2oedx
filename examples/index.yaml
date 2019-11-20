@@ -1,0 +1,17 @@
+---
+course:
+  name: How to Eat Pizza
+  number: PIZZA
+  chapter:
+  - name: Acquiring & Eating Pizza
+    sequential:
+    - name: Acquiring Your Pizza
+      vertical:
+      - name: Acquiring Your Pizza
+        html:
+        - file: lesson1.md
+    - name: Eating Your Pizza
+      vertical:
+      - name: Eating Your Pizza
+        html:
+        - file: lesson2.md
