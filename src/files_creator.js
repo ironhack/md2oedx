@@ -9,8 +9,15 @@ const typeChild = {
   course: 'chapter',
   chapter: 'sequential',
   sequential: 'vertical',
-  vertical: 'html'
+  vertical: 'component'
 };
+
+const deliverableKeys = [
+  'display_name',
+  'deliverable_identifier',
+  'deliverable_description',
+  'deliverable_duedate'
+];
 
 module.exports = {
   createMdFiles,
@@ -67,6 +74,16 @@ function createXmlFiles(index) {
 // console.log(createXmlFiles(index));
 
 function buildTree(files, fileName, node, nodeIndex, nodeType) {
+  nodeType = R.when(
+    R.equals('component'),
+    R.always(node.type),
+    nodeType
+  );
+  // deliverables don't need individual files created
+  if (nodeType === 'deliverable') {
+    return;
+  }
+
   const childType = typeChild[nodeType];
   const children = R.propOr([], childType, node);
   const nodeFileName = `${fileName}-${R.replace(
@@ -74,33 +91,47 @@ function buildTree(files, fileName, node, nodeIndex, nodeType) {
     '',
     `${nodeType}_${nodeIndex}`
   )}`;
-  const xmlNode = createNode(nodeType, node, nodeFileName, children.length);
+  const xmlNode = createNode(nodeType, node, nodeFileName, children);
   files[`${nodeType}/${nodeFileName}.xml`] = xmlNode;
   R.addIndex(R.forEach)((child, index) => {
     buildTree(files, nodeFileName, child, index, childType);
   }, children);
 }
 
-function createNode(type, nodeInfo, fileName, childrenCount) {
+function createNode(type, nodeInfo, fileName, children) {
   const childrenType = typeChild[type];
   const xmlObject = {
     [type]: {
       '@display_name': nodeInfo.name,
       '@filename': nodeInfo.file
         ? R.slice(0, -3, R.replace(/\//g, '-', nodeInfo.file))
-        : undefined,
-      [childrenType]: R.times(
-        index => ({
-          '@url_name': `${fileName}-${R.replace(
-            '_0',
-            '',
-            `${childrenType}_${index}`
-          )}`
-        }),
-        childrenCount
-      )
+        : undefined
     }
   };
-  const node = xml.create(xmlObject);
+  // use reduce() and ele() to build children
+  // (they vary in types and attributes)
+  const node = R.addIndex(R.reduce)(
+    (acc, child, index) => {
+      const realType = R.when(
+        R.equals('component'),
+        R.always(child.type),
+        childrenType
+      );
+      const childXml = {
+        url_name: `${fileName}-${R.replace(
+          '_0',
+          '',
+          `${realType}_${index}`
+        )}`
+      };
+      return acc.ele(realType, R.ifElse(
+        R.propEq('type', 'deliverable'),
+        R.pipe(R.pick(deliverableKeys), R.mergeRight(childXml)),
+        R.always(childXml)
+      )(child)).up();
+    },
+    xml.create(xmlObject),
+    children
+  );
   return xmlFormatter(node.toString());
 }

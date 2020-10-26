@@ -29,38 +29,51 @@ The output will be written to the destination path. Defaults to current director
 ## JSON File Structure
 
 Here is a sample json file that describes a course:
-```
+```json
 {
   "course": {
     "name": "Course Title",
     "number": "CT",
-    "chapter": [{
-        "name": "Module 1",
-        "sequential": [{
-            "name": "Submodule 1",
-            "vertical": [{
+    "chapter": [
+      {
+        "name": "Unit 1",
+        "sequential": [
+          {
+            "name": "Weekday",
+            "vertical": [
+              {
                 "name": "Lesson 1",
-                "html": [{
-                    "file": "markdown1"
-                  }
-                ]
+                "component": [{
+                    "type": "html",
+                    "file": "markdowns/lesson1.md"
+                }]
               },
               {
                 "name": "Lesson 2",
-                "html": [{
-                  "file": "markdown2"
+                "component": [{
+                    "type": "html",
+                    "file": "markdowns/lesson2.md"
                 }]
               }
             ]
           },
           {
-            "name": "Submodule 2",
-            "vertical": []
+            "name": "Weekend",
+            "vertical": [{
+                "name": "Homework",
+                "component": [{
+                    "type": "deliverable",
+                    "display_name": "Homework",
+                    "deliverable_identifier": "assign1",
+                    "deliverable_description": "Your first homework is to do 100 pushups.",
+                    "deliverable_duedate": "2030-10-28"
+                }]
+            }]
           }
         ]
       },
       {
-        "name": "Module 2",
+        "name": "Unit 2",
         "sequential": []
       }
     ]
