@@ -3,27 +3,44 @@
     "name": "How to Eat Pizza",
     "number": "PIZZA",
     "chapter": [{
-      "name": "Acquiring & Eating Pizza",
-      "sequential": [
-        {
-          "name": "Acquiring Your Pizza",
-          "vertical": [{
-            "name": "Acquiring Your Pizza",
-            "html": [{
+      "name": "Big Data & Pizza",
+      "sequential": [{
+        "name": "Monday Your Pizza",
+        "vertical": [
+          {
+            "name": "[TALK] Welcoming Your Pizza",
+            "component": [{
+              "type": "html",
               "file": "lesson1.md"
             }]
-          }]
-        },
-        {
-          "name": "Eating Your Pizza",
-          "vertical": [{
-            "name": "Eating Your Pizza",
-            "html": [{
-              "file": "lesson2.md"
+          },
+          {
+            "name": "Homework for Your Pizza",
+            "component": [
+              {
+                "type": "deliverable",
+                "display_name": "Blah",
+                "deliverable_identifier": "blah1",
+                "deliverable_description": "Blah, blah, blah."
+              },
+              {
+                "type": "html",
+                "file": "lesson2.md"
+              }
+            ]
+          },
+          {
+            "name": "Homework 2 for Your Burger",
+            "component": [{
+              "type": "deliverable",
+              "display_name": "blah",
+              "deliverable_identifier": "blah2",
+              "deliverable_description": "blah, blah, blah.",
+              "deliverable_duedate": "2030-01-28"
             }]
-          }]
-        }
-      ]
+          }
+        ]
+      }]
     }]
   }
 }
