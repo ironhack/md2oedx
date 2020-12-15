@@ -74,11 +74,8 @@ function createXmlFiles(index) {
 // console.log(createXmlFiles(index));
 
 function buildTree(files, fileName, node, nodeIndex, nodeType) {
-  nodeType = R.when(
-    R.equals('component'),
-    R.always(node.type),
-    nodeType
-  );
+  nodeType = getRealType(nodeType, node.type);
+
   // deliverables don't need individual files created
   if (nodeType === 'deliverable') {
     return;
@@ -112,11 +109,7 @@ function createNode(type, nodeInfo, fileName, children) {
   // (they vary in types and attributes)
   const node = R.addIndex(R.reduce)(
     (acc, child, index) => {
-      const realType = R.when(
-        R.equals('component'),
-        R.always(child.type),
-        childrenType
-      );
+      const realType = getRealType(childrenType, child.type);
       const childXml = {
         url_name: `${fileName}-${R.replace(
           '_0',
@@ -134,4 +127,12 @@ function createNode(type, nodeInfo, fileName, children) {
     children
   );
   return xmlFormatter(node.toString());
+}
+
+function getRealType(originalType, subtype) {
+  return R.when(
+    R.equals('component'),
+    R.always(subtype || 'html'),
+    originalType
+  );
 }
