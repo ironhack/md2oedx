@@ -12,15 +12,18 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "fs-extra": "^7.0.1",
+    "h2m": "^0.7.0",
     "hackmd-to-html": "^1.1.0",
     "js-yaml": "^3.13.1",
     "klaw-sync": "^6.0.0",
+    "lodash": "^4.17.20",
     "ramda": "^0.26.1",
-    "targz": "^1.0.1",
+    "tar": "^6.1.0",
+    "traverse": "^0.6.6",
     "xml-formatter": "^1.1.0",
+    "xml-js": "^1.6.11",
     "xmlbuilder": "^11.0.0"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=8.0.0"
   },
@@ -42,5 +45,10 @@
   "repository": "ironhack/md2oedx",
   "scripts": {
     "test": "echo NO TESTS"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.835.0",
+    "axios": "^0.21.1",
+    "p-iteration": "^1.1.8"
   }
 }
