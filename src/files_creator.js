@@ -16,7 +16,8 @@ const deliverableKeys = [
   'display_name',
   'deliverable_identifier',
   'deliverable_description',
-  'deliverable_duedate'
+  'deliverable_duedate',
+  'deliverable_type'
 ];
 
 module.exports = {
