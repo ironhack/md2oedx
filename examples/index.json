@@ -25,7 +25,8 @@
                     "type": "deliverable",
                     "display_name": "Blah",
                     "deliverable_identifier": "blah1",
-                    "deliverable_description": "Blah, blah, blah."
+                    "deliverable_description": "Blah, blah, blah.",
+                    "deliverable_required": true
                   },
                   {
                     "type": "html",

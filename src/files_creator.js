@@ -18,6 +18,7 @@ const deliverableKeys = [
   "deliverable_description",
   "deliverable_duedate",
   "deliverable_type",
+  "deliverable_required"
 ];
 
 module.exports = {
