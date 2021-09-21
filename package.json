@@ -1,7 +1,7 @@
 {
   "name": "md2oedx",
   "description": "Translates markdown files and a structure json file into an importable Open Edx course",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": "Guillermo Noain @gnoain",
   "bin": {
     "md2oedx": "./bin/run"
