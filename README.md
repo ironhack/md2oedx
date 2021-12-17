@@ -77,7 +77,8 @@ Here is a sample json file that describes a course:
                     "deliverable_description": "Your first homework is to do 100 pushups.",
                     "deliverable_duedate": "2030-10-28",
                     "deliverable_type": "file_type",
-                    "deliverable_required": true
+                    "deliverable_required": true,
+                    "deliverable_cutscore": 65
                   }
                 ]
               }
